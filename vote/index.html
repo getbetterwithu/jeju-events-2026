@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>제주 가족여행 투표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink:#17302a;
+      --muted:#53665f;
+      --paper:#fffdf6;
+      --wash:#e7f3ec;
+      --surface:#ffffff;
+      --line:#23483d;
+      --soft-line:#c7d9d1;
+      --orange:#f47b3a;
+      --orange-soft:#fff0e3;
+      --green:#2d8066;
+      --green-soft:#dcefe6;
+      --yellow:#f4cc55;
+      --yellow-soft:#fff7cf;
+      --blue:#4184a7;
+      --blue-soft:#e0f2fa;
+      --rose:#d66363;
+      --rose-soft:#fae7e5;
+      --shadow:0 12px 30px rgba(35,72,61,.12);
+      --shadow-small:0 5px 0 rgba(35,72,61,.17);
+    }
+    @media (prefers-color-scheme:dark){
+      :root{
+        --ink:#f0f7f3;
+        --muted:#b5c9c1;
+        --paper:#101c19;
+        --wash:#172a24;
+        --surface:#1b2d28;
+        --line:#c5e8d9;
+        --soft-line:#405a51;
+        --orange:#ff9a62;
+        --orange-soft:#3b2a22;
+        --green:#61bea0;
+        --green-soft:#193b31;
+        --yellow:#f5d574;
+        --yellow-soft:#3a3420;
+        --blue:#79b9da;
+        --blue-soft:#1c3645;
+        --rose:#ee8d8d;
+        --rose-soft:#3d2526;
+        --shadow:0 12px 30px rgba(0,0,0,.25);
+        --shadow-small:0 5px 0 rgba(0,0,0,.3);
+      }
+    }
+    *{box-sizing:border-box}
+    html{min-height:100%;background:var(--paper)}
+    body{margin:0;min-height:100vh;color:var(--ink);font-family:"Gowun Dodum",sans-serif;background:
+      radial-gradient(circle at 14px 14px,color-mix(in srgb,var(--green) 13%,transparent) 1.2px,transparent 1.4px) 0 0/28px 28px,
+      linear-gradient(180deg,var(--wash),var(--paper) 34%);overflow-x:hidden}
+    button{font:inherit;color:inherit}
+    button:focus-visible{outline:4px solid color-mix(in srgb,var(--yellow) 85%,white);outline-offset:3px}
+    .page{width:min(100%,760px);min-height:100vh;margin:0 auto;padding:clamp(24px,5vw,46px) clamp(18px,5vw,40px) calc(38px + env(safe-area-inset-bottom))}
+    .scene{animation:appear .28s ease-out}
+    @keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+
+    .island-strip{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
+    .island-mark{width:92px;height:48px;transform:rotate(-3deg);color:var(--green);flex:none}
+    .trip-note{font-family:"Jua",sans-serif;color:var(--green);font-size:1rem;line-height:1.2;text-align:right}
+    .trip-note span{display:block;color:var(--muted);font-family:"Gowun Dodum",sans-serif;font-size:.76rem;margin-top:3px}
+
+    h1,h2,h3,p{margin-top:0}
+    h1{font-family:"Jua",sans-serif;font-size:clamp(2.25rem,9vw,4.6rem);line-height:1.04;letter-spacing:-.035em;margin-bottom:14px;max-width:640px}
+    h1 .paint{color:var(--orange);position:relative;white-space:nowrap}
+    h1 .paint::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.13em;border-radius:50%;background:var(--yellow);z-index:-1;transform:rotate(-1deg)}
+    .lead{font-size:clamp(1.05rem,3vw,1.28rem);line-height:1.62;color:var(--muted);margin-bottom:30px;max-width:560px}
+    .section-title{font-family:"Jua",sans-serif;font-size:clamp(1.7rem,6vw,2.5rem);line-height:1.15;margin-bottom:8px}
+    .sub{color:var(--muted);line-height:1.55;margin-bottom:20px}
+
+    .people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .person{position:relative;min-height:126px;border:2px solid var(--line);border-radius:22px 7px 20px 9px;background:var(--surface);box-shadow:var(--shadow-small);padding:17px 15px;text-align:left;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;overflow:hidden}
+    .person:nth-child(2){border-radius:8px 24px 9px 20px}.person:nth-child(3){border-radius:18px 8px 24px 6px}.person:nth-child(4){border-radius:7px 18px 8px 24px}
+    .person:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(35,72,61,.15)}
+    .person .face{display:grid;place-items:center;width:50px;height:50px;border:2px solid var(--line);border-radius:50%;background:var(--person-bg);margin-bottom:9px}
+    .person .face svg{width:31px;height:31px}
+    .person strong{display:block;font-family:"Jua",sans-serif;font-size:1.4rem;font-weight:400}
+    .person small{color:var(--muted)}
+    .person.done{background:var(--green-soft);box-shadow:none;border-style:dashed;cursor:default}
+    .stamp{position:absolute;right:10px;top:13px;color:var(--green);font-family:"Jua",sans-serif;border:2px solid currentColor;border-radius:50%;width:52px;height:52px;display:grid;place-items:center;transform:rotate(10deg);font-size:.85rem}
+    .waiting{display:flex;align-items:center;gap:10px;margin:22px 2px 0;padding:13px 14px;border-top:2px dashed var(--soft-line);color:var(--muted);font-size:.92rem}
+    .waiting svg{width:30px;height:30px;color:var(--orange);flex:none}
+
+    .poll-top{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .back{width:44px;height:44px;border:2px solid var(--line);background:var(--surface);border-radius:50%;display:grid;place-items:center;cursor:pointer;flex:none}
+    .back svg{width:22px;height:22px}
+    .who-chip{display:flex;align-items:center;gap:9px;font-family:"Jua",sans-serif;font-size:1.1rem}
+    .mini-face{width:34px;height:34px;border:2px solid var(--line);border-radius:50%;background:var(--person-bg);display:grid;place-items:center}
+    .mini-face svg{width:21px;height:21px}
+    .progress{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:0 0 26px}
+    .progress span{height:7px;border-radius:8px;background:var(--soft-line)}
+    .progress span.on{background:var(--orange)}
+    .q-kicker{font-size:.92rem;color:var(--green);font-weight:700;margin-bottom:6px}
+    .question{font-family:"Jua",sans-serif;font-size:clamp(1.8rem,6.8vw,3rem);line-height:1.17;margin-bottom:8px}
+    .hint{color:var(--muted);margin-bottom:21px}
+    .choices{display:grid;gap:12px}
+    .choice{width:100%;min-height:102px;border:2px solid var(--soft-line);background:var(--surface);border-radius:10px 25px 12px 22px;padding:15px 17px;display:grid;grid-template-columns:58px 1fr 30px;align-items:center;gap:14px;text-align:left;cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
+    .choice:nth-child(even){border-radius:24px 9px 21px 12px}
+    .choice:active{transform:scale(.985)}
+    .choice.selected{border-color:var(--orange);background:var(--orange-soft);box-shadow:var(--shadow-small)}
+    .choice-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:var(--choice-bg);color:var(--choice-ink)}
+    .choice-icon svg{width:37px;height:37px}
+    .choice b{font-family:"Jua",sans-serif;font-weight:400;font-size:1.37rem;display:block;margin-bottom:4px}
+    .choice small{font-size:.86rem;color:var(--muted);line-height:1.35}
+    .radio{width:27px;height:27px;border:2px solid var(--soft-line);border-radius:50%;display:grid;place-items:center}
+    .selected .radio{border-color:var(--orange);background:var(--orange)}
+    .selected .radio::after{content:"";width:9px;height:9px;border:2px solid var(--paper);border-radius:50%}
+    .next{width:100%;min-height:58px;margin-top:21px;border:2px solid var(--line);border-radius:16px 7px 16px 7px;background:var(--ink);color:var(--paper);box-shadow:var(--shadow-small);font-family:"Jua",sans-serif;font-size:1.25rem;cursor:pointer}
+    .next:disabled{opacity:.36;cursor:not-allowed;box-shadow:none}
+    .next:not(:disabled):active{transform:translateY(4px);box-shadow:none}
+
+    .handoff{text-align:center;padding-top:8vh}
+    .handoff-art{width:150px;height:150px;margin:0 auto 22px;color:var(--orange)}
+    .handoff h2{font-family:"Jua",sans-serif;font-size:clamp(2rem,8vw,3.4rem);line-height:1.15;margin-bottom:12px}
+    .handoff p{font-size:1.08rem;color:var(--muted);line-height:1.65;margin:0 auto 27px;max-width:460px}
+    .handoff button{width:min(100%,360px)}
+
+    .result-head{position:relative;margin-bottom:28px}
+    .result-head h1{font-size:clamp(2.2rem,8vw,4rem);margin-bottom:10px}
+    .result-head p{color:var(--muted);line-height:1.55}
+    .confetti{position:absolute;right:0;top:-8px;width:110px;height:88px;pointer-events:none}
+    .confetti i{position:absolute;width:10px;height:22px;border-radius:6px;background:var(--orange);transform:rotate(var(--r))}
+    .confetti i:nth-child(1){left:8px;top:8px;--r:28deg}.confetti i:nth-child(2){left:48px;top:0;background:var(--yellow);--r:-18deg}.confetti i:nth-child(3){left:88px;top:19px;background:var(--green);--r:36deg}.confetti i:nth-child(4){left:27px;top:56px;background:var(--blue);--r:-35deg}.confetti i:nth-child(5){left:76px;top:62px;background:var(--rose);--r:16deg}
+    .result-list{display:grid;gap:24px}
+    .result-card{background:var(--surface);border:2px solid var(--line);padding:19px 17px 18px;border-radius:24px 8px 20px 10px;box-shadow:var(--shadow)}
+    .result-card:nth-child(even){border-radius:8px 24px 10px 20px}
+    .result-card h2{font-family:"Jua",sans-serif;font-weight:400;font-size:1.45rem;line-height:1.28;margin-bottom:4px}
+    .result-card .when{font-size:.82rem;color:var(--green);font-weight:700;margin-bottom:15px}
+    .winner-line{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--yellow-soft);padding:10px 12px;border-radius:9px 15px 8px 14px;margin-bottom:14px}
+    .winner-line strong{font-family:"Jua",sans-serif;font-weight:400;font-size:1.17rem}
+    .winner-line span{font-size:.78rem;font-weight:700;color:var(--orange);white-space:nowrap}
+    .bars{display:grid;gap:11px}
+    .bar-meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:5px;font-size:.9rem}
+    .bar-meta strong{font-weight:700}.bar-meta span{color:var(--muted);white-space:nowrap}
+    .track{height:13px;border-radius:20px;background:var(--wash);overflow:hidden}
+    .fill{height:100%;border-radius:20px;background:var(--bar);width:0;animation:grow .7s .1s ease-out forwards}
+    @keyframes grow{to{width:var(--w)}}
+    .voters{font-size:.76rem;color:var(--muted);margin-top:4px;min-height:1em}
+    .reset{width:100%;min-height:56px;margin-top:28px;border:2px dashed var(--rose);color:var(--rose);background:var(--rose-soft);border-radius:13px;font-family:"Jua",sans-serif;font-size:1.18rem;cursor:pointer}
+    .reset-note{text-align:center;color:var(--muted);font-size:.8rem;margin-top:9px}
+
+    @media(min-width:650px){
+      .people{grid-template-columns:repeat(4,1fr)}
+      .person{min-height:154px}
+      .choices.three{grid-template-columns:repeat(3,1fr)}
+      .choices.three .choice{grid-template-columns:1fr;grid-template-rows:65px auto 28px;text-align:center;min-height:218px;padding:17px}
+      .choices.three .choice-icon{margin:0 auto;width:65px;height:65px}
+      .choices.three .radio{margin:0 auto}
+      .choices.two{grid-template-columns:repeat(2,1fr)}
+      .choices.two .choice{min-height:125px}
+    }
+    @media(max-width:410px){
+      .page{padding-left:15px;padding-right:15px}
+      .person{min-height:116px;padding:14px 12px}
+      .person .face{width:44px;height:44px}
+      .stamp{width:46px;height:46px;font-size:.76rem}
+      .choice{grid-template-columns:52px 1fr 25px;gap:11px;padding:13px}
+      .choice-icon{width:52px;height:52px}
+      .choice b{font-size:1.22rem}
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="app" aria-live="polite"></main>
+  <script>
+    (function(){
+      var people=[
+        {id:'dad',name:'아빠',note:'여행 작전대장',bg:'var(--blue-soft)',icon:'cap'},
+        {id:'mom',name:'엄마',note:'가족 최종 결재자',bg:'var(--rose-soft)',icon:'flower'},
+        {id:'first',name:'첫째',note:'초5 모험가',bg:'var(--yellow-soft)',icon:'bolt'},
+        {id:'second',name:'둘째',note:'초2 탐험가',bg:'var(--green-soft)',icon:'star'}
+      ];
+      var questions=[
+        {when:'2일차 · 오후',title:'오늘 오후엔 어디로 갈까?',hint:'바다, 섬, 숲 기차 중 하나를 골라요.',options:[
+          {name:'아쿠아플라넷',desc:'커다란 수족관과 해양 생물',icon:'fish',bg:'var(--blue-soft)',ink:'var(--blue)'},
+          {name:'우도',desc:'배 타고 들어가는 작은 섬',icon:'boat',bg:'var(--orange-soft)',ink:'var(--orange)'},
+          {name:'에코랜드',desc:'숲속을 달리는 기차 테마파크',icon:'train',bg:'var(--green-soft)',ink:'var(--green)'}]},
+        {when:'3일차 · 오후',title:'탐험 장소는 어디가 좋을까?',hint:'땅속, 미로, 돌 이야기 중 하나를 골라요.',options:[
+          {name:'만장굴',desc:'용암이 만든 신비한 동굴',icon:'cave',bg:'var(--blue-soft)',ink:'var(--blue)'},
+          {name:'메이즈랜드',desc:'AR 버디즈 미션! 미로 속 미스터리 박스를 찾아 스캔하면 버디즈 수집, 미션 성공하면 행운부적',icon:'maze',bg:'var(--green-soft)',ink:'var(--green)'},
+          {name:'제주돌문화공원',desc:'제주의 돌과 설문대할망 이야기',icon:'stone',bg:'var(--yellow-soft)',ink:'var(--orange)'}]},
+        {when:'4일차 · 오전',title:'마지막 산책은 어디서 할까?',hint:'억새 오름과 커다란 분화구 중 하나를 골라요.',options:[
+          {name:'따라비오름',desc:'바람 따라 흔들리는 억새길',icon:'grass',bg:'var(--yellow-soft)',ink:'var(--orange)'},
+          {name:'산굼부리',desc:'한눈에 보는 거대한 분화구',icon:'crater',bg:'var(--green-soft)',ink:'var(--green)'}]},
+        {when:'2일차 · 저녁',title:'흑돼지는 어디서 먹을까?',hint:'마음이 더 끌리는 식당 하나를 골라요.',options:[
+          {name:'흑돈쭐',desc:'성산에서 만나는 흑돼지 한 상',icon:'pig',bg:'var(--rose-soft)',ink:'var(--rose)'},
+          {name:'돌담애',desc:'제주 돌담 분위기의 흑돼지 식당',icon:'wall',bg:'var(--orange-soft)',ink:'var(--orange)'}]}
+      ];
+      var votes={};
+      var screen='home',currentPerson=null,currentQuestion=0,draft=[];
+      var app=document.getElementById('app');
+
+      function icon(name){
+        var paths={
+          cap:'<path d="M5 17c2-6 6-9 12-8 5 .7 8 4 9 9-8-2-14-2-21-1Z"/><path d="M9 19c5-1 10-1 15 1"/><path d="M16 9V5h5"/>',
+          flower:'<circle cx="16" cy="16" r="3"/><path d="M16 13c-1-7 6-8 6-3 0 2-2 4-4 5 7-1 8 6 3 6-2 0-4-2-5-4 1 7-6 8-6 3 0-2 2-4 4-5-7 1-8-6-3-6 2 0 4 2 5 4Z"/>',
+          bolt:'<path d="m18 3-9 15h7l-2 11 9-16h-7l2-10Z"/>',
+          star:'<path d="m16 4 3.5 7 7.5 1-5.5 5 1.5 8-7-4-7 4 1.5-8-5.5-5 7.5-1L16 4Z"/>',
+          fish:'<path d="M5 16c5-7 12-8 18-2l4-4v12l-4-4c-6 6-13 5-18-2Z"/><circle cx="20" cy="15" r="1"/>',
+          boat:'<path d="M5 18h22l-4 7H9l-4-7Z"/><path d="M15 18V6l9 8h-9M15 8 8 16h7"/>',
+          train:'<rect x="7" y="5" width="18" height="20" rx="5"/><path d="M10 10h12M10 17h12M11 25l-3 4m13-4 3 4"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>',
+          cave:'<path d="M4 27c1-14 5-22 12-22s11 8 12 22H4Z"/><path d="M11 27c0-8 2-13 5-13s5 5 5 13"/>',
+          maze:'<path d="M6 6h20v20H6V6Zm5 0v6h10v8h-5v6m10-14h-5m-10 0v9h5m-10 0h5"/>',
+          stone:'<path d="M8 27 6 16l4-10h12l4 10-2 11H8Z"/><path d="M11 12h3m4 0h3m-8 6c2 2 4 2 6 0"/>',
+          grass:'<path d="M5 27h22M10 27c0-9-1-14-4-19m8 19c0-12 2-18 6-23m0 23c0-7 2-12 6-16M9 16l-4-3m10 3 5-4m2 7 5-3"/>',
+          crater:'<path d="M3 25 11 9l5 6 4-7 9 17H3Z"/><path d="M10 20c4 3 8 3 13 0"/>',
+          pig:'<path d="M6 17c0-6 5-10 11-10 4 0 8 2 10 6l3 1-3 4c-1 6-5 9-12 9-6 0-9-4-9-10Z"/><path d="M10 10 8 5l6 3m0 19v3m8-4v4"/><circle cx="23" cy="14" r="1"/>',
+          wall:'<path d="M4 10h24v16H4V10Zm0 6h24M4 22h24M11 10v6m9-6v6M8 16v6m10-6v6m7 0v4"/>',
+          arrow:'<path d="m19 7-9 9 9 9M11 16h15"/>',
+          phone:'<rect x="9" y="3" width="14" height="26" rx="3"/><path d="M13 7h6M15 25h2"/>',
+          vote:'<path d="M7 12h18l3 17H4l3-17Z"/><path d="m11 8 4 4 7-9"/>'
+        };
+        return '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[name]||paths.star)+'</svg>';
+      }
+      function island(){return '<svg class="island-mark" viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 36c9-8 22-12 35-13 14-1 24-12 37-10 9 1 12 10 20 12 7 2 13 0 17 5 3 4-3 11-9 13-16 6-33 2-49 3-15 1-27 6-41 3C9 47 2 42 6 36Z"/><path d="m50 23 8-10 8 7m-25 25c9-6 20-6 28-1"/></svg>'}
+      function personFace(p,mini){return '<span class="'+(mini?'mini-face':'face')+'" style="--person-bg:'+p.bg+'">'+icon(p.icon)+'</span>'}
+      function home(){
+        var done=Object.keys(votes).length;
+        var peopleHtml=people.map(function(p){var d=!!votes[p.id];return '<button class="person'+(d?' done':'')+'" data-person="'+p.id+'" '+(d?'disabled':'')+' style="--person-bg:'+p.bg+'">'+personFace(p,false)+'<strong>'+p.name+'</strong><small>'+p.note+'</small>'+(d?'<span class="stamp">투표<br>완료</span>':'')+'</button>'}).join('');
+        return '<section class="scene"><div class="island-strip">'+island()+'<div class="trip-note">우리 가족 작전회의<span>한 사람씩 차례대로!</span></div></div><h1>제주에서 뭐 할까?<br><span class="paint">우리끼리 투표!</span></h1><p class="lead">아빠 폰을 한 명씩 돌려가며 네 가지를 골라요. 다른 사람의 선택은 마지막까지 비밀!</p><h2 class="section-title">나는 누구?</h2><p class="sub">이름을 누르면 바로 투표가 시작돼요.</p><div class="people">'+peopleHtml+'</div><div class="waiting">'+icon('phone')+'<span><b>'+done+'/4명 완료.</b> '+(done===0?'첫 번째 투표자를 골라 주세요.':done<4?'다음 사람에게 폰을 건네주세요.':'결과를 준비하고 있어요!')+'</span></div></section>';
+      }
+      function poll(){
+        var p=people.find(function(x){return x.id===currentPerson});var q=questions[currentQuestion];var selected=draft[currentQuestion];
+        var cards=q.options.map(function(o,i){return '<button class="choice '+(selected===i?'selected':'')+'" data-choice="'+i+'" aria-pressed="'+(selected===i)+'"><span class="choice-icon" style="--choice-bg:'+o.bg+';--choice-ink:'+o.ink+'">'+icon(o.icon)+'</span><span><b>'+o.name+'</b><small>'+o.desc+'</small></span><span class="radio"></span></button>'}).join('');
+        var progress=[0,1,2,3].map(function(i){return '<span class="'+(i<=currentQuestion?'on':'')+'"></span>'}).join('');
+        return '<section class="scene"><div class="poll-top"><button class="back" id="back" aria-label="이전 화면">'+icon('arrow')+'</button><div class="who-chip">'+personFace(p,true)+'<span>'+p.name+'의 선택</span></div></div><div class="progress" aria-label="4개 중 '+(currentQuestion+1)+'번째 질문">'+progress+'</div><div class="q-kicker">'+q.when+' · '+(currentQuestion+1)+'/4</div><h2 class="question">'+q.title+'</h2><p class="hint">'+q.hint+'</p><div class="choices '+(q.options.length===3?'three':'two')+'">'+cards+'</div><button class="next" id="next" '+(selected===undefined?'disabled':'')+'>'+(currentQuestion===3?'이대로 투표 완료':'다음 질문')+'</button></section>';
+      }
+      function handoff(){
+        var p=people.find(function(x){return x.id===currentPerson});var done=Object.keys(votes).length;
+        return '<section class="scene handoff"><div class="handoff-art">'+icon(done===4?'vote':'phone')+'</div><h2>'+p.name+', 투표 완료!</h2><p>'+(done===4?'네 사람 모두 선택했어요.<br>이제 우리 가족의 1등을 확인해요!':'선택은 안전하게 접어 두었어요.<br>다음 사람에게 폰을 건네주세요.')+'</p><button class="next" id="handoff">'+(done===4?'결과 발표하기':'다음 사람 고르기')+'</button></section>';
+      }
+      function results(){
+        var colors=['var(--blue)','var(--orange)','var(--green)'];
+        var cards=questions.map(function(q,qi){
+          var counts=q.options.map(function(){return 0}),names=q.options.map(function(){return []});
+          people.forEach(function(p){var pick=votes[p.id][qi];counts[pick]++;names[pick].push(p.name)});
+          var max=Math.max.apply(null,counts);var winners=q.options.filter(function(o,i){return counts[i]===max}).map(function(o){return o.name});
+          var bars=q.options.map(function(o,i){var pct=(counts[i]/4*100)+'%';return '<div><div class="bar-meta"><strong>'+o.name+'</strong><span>'+counts[i]+'표 · '+Math.round(counts[i]/4*100)+'%</span></div><div class="track"><div class="fill" style="--w:'+pct+';--bar:'+colors[i]+'"></div></div><div class="voters">'+(names[i].length?names[i].join(' · '):'선택한 사람 없음')+'</div></div>'}).join('');
+          return '<article class="result-card"><div class="when">'+q.when+'</div><h2>'+q.title+'</h2><div class="winner-line"><strong>'+winners.join(' · ')+'</strong><span>'+(winners.length>1?'공동 1등':'가족 PICK')+'</span></div><div class="bars">'+bars+'</div></article>';
+        }).join('');
+        return '<section class="scene"><div class="result-head"><h1>우리 가족의<br><span class="paint">제주 PICK!</span></h1><p>네 사람의 마음이 모였어요. 동점도 멋진 결과예요!</p><div class="confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div><div class="result-list">'+cards+'</div><button class="reset" id="reset">처음부터 다시 투표하기</button><p class="reset-note">누르면 지금 투표 결과가 모두 지워져요.</p></section>';
+      }
+      function render(){app.innerHTML=screen==='home'?home():screen==='poll'?poll():screen==='handoff'?handoff():results();window.scrollTo({top:0,behavior:'smooth'});bind()}
+      function bind(){
+        if(screen==='home'){
+          Array.prototype.forEach.call(app.querySelectorAll('[data-person]'),function(btn){btn.addEventListener('click',function(){currentPerson=btn.getAttribute('data-person');currentQuestion=0;draft=[];screen='poll';render()})});
+        }else if(screen==='poll'){
+          app.querySelector('#back').addEventListener('click',function(){if(currentQuestion>0){currentQuestion--;render()}else{screen='home';currentPerson=null;draft=[];render()}});
+          Array.prototype.forEach.call(app.querySelectorAll('[data-choice]'),function(btn){btn.addEventListener('click',function(){draft[currentQuestion]=Number(btn.getAttribute('data-choice'));render()})});
+          app.querySelector('#next').addEventListener('click',function(){if(draft[currentQuestion]===undefined)return;if(currentQuestion<3){currentQuestion++;render()}else{votes[currentPerson]=draft.slice();screen='handoff';render()}});
+        }else if(screen==='handoff'){
+          app.querySelector('#handoff').addEventListener('click',function(){if(Object.keys(votes).length===4){screen='results'}else{screen='home';currentPerson=null;draft=[]}render()});
+        }else{
+          app.querySelector('#reset').addEventListener('click',function(){votes={};currentPerson=null;currentQuestion=0;draft=[];screen='home';render()});
+        }
+      }
+      render();
+    })();
+  </script>
+</body>
+</html>
